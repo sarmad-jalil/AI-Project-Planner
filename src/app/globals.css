@@ -1,26 +1,203 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(0.94 0.032 86);
+  --foreground: oklch(0.19 0.029 252);
+  --card: oklch(0.985 0.026 92 / 84%);
+  --card-foreground: oklch(0.19 0.029 252);
+  --popover: oklch(0.985 0.026 92 / 84%);
+  --popover-foreground: oklch(0.19 0.029 252);
+  --primary: oklch(0.68 0.165 55);
+  --primary-foreground: oklch(0.98 0.02 88);
+  --secondary: oklch(0.86 0.055 184 / 80%);
+  --secondary-foreground: oklch(0.19 0.029 252);
+  --muted: oklch(0.88 0.03 84 / 68%);
+  --muted-foreground: oklch(0.42 0.036 252);
+  --accent: oklch(0.78 0.122 174);
+  --accent-foreground: oklch(0.15 0.038 252);
+  --destructive: oklch(0.58 0.21 31);
+  --destructive-foreground: oklch(0.98 0.02 88);
+  --border: oklch(0.24 0.035 252 / 18%);
+  --input: oklch(0.24 0.035 252 / 18%);
+  --ring: oklch(0.76 0.14 174);
+  --chart-1: oklch(0.68 0.165 55);
+  --chart-2: oklch(0.78 0.122 174);
+  --chart-3: oklch(0.64 0.18 296);
+  --chart-4: oklch(0.75 0.15 28);
+  --chart-5: oklch(0.72 0.16 142);
+  --radius: 0.625rem;
+  
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-display-family: 'Fraunces', serif;
+  --font-code: 'IBM Plex Mono', monospace;
+}
+
+.dark {
+  --background: oklch(0.15 0.038 252);
+  --foreground: oklch(0.94 0.034 88);
+  --card: oklch(0.205 0.044 252 / 78%);
+  --card-foreground: oklch(0.94 0.034 88);
+  --popover: oklch(0.205 0.044 252 / 78%);
+  --popover-foreground: oklch(0.94 0.034 88);
+  --primary: oklch(0.78 0.16 61);
+  --primary-foreground: oklch(0.15 0.038 252);
+  --secondary: oklch(0.25 0.06 244 / 74%);
+  --secondary-foreground: oklch(0.94 0.034 88);
+  --muted: oklch(0.26 0.052 252 / 64%);
+  --muted-foreground: oklch(0.73 0.042 88);
+  --accent: oklch(0.77 0.134 178);
+  --accent-foreground: oklch(0.15 0.038 252);
+  --destructive: oklch(0.68 0.21 31);
+  --destructive-foreground: oklch(0.15 0.038 252);
+  --border: oklch(0.98 0.02 88 / 14%);
+  --input: oklch(0.98 0.02 88 / 14%);
+  --ring: oklch(0.8 0.15 178);
+  --chart-1: oklch(0.78 0.16 61);
+  --chart-2: oklch(0.77 0.134 178);
+  --chart-3: oklch(0.74 0.18 296);
+  --chart-4: oklch(0.85 0.15 28);
+  --chart-5: oklch(0.82 0.16 142);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-body: var(--font-body);
+  --font-display: var(--font-display-family);
+  --font-code: var(--font-code);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .planner-bg {
+    @apply relative bg-background;
+    background-image: 
+      linear-gradient(to right, oklch(0.5 0.05 250 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.5 0.05 250 / 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  .dark .planner-bg {
+    background-image: 
+      linear-gradient(to right, oklch(0.8 0.05 250 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.8 0.05 250 / 0.05) 1px, transparent 1px);
+  }
+
+  .planner-bg::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: radial-gradient(circle at 80% 20%, oklch(0.68 0.165 55 / 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, oklch(0.78 0.122 174 / 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, oklch(0.64 0.18 296 / 0.05) 0%, transparent 60%);
+  }
+
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-md border border-border shadow-lg;
+    box-shadow: inset 0 1px 0 0 oklch(1 0 0 / 0.1), 0 4px 6px -1px oklch(0 0 0 / 0.1);
+  }
+
+  .paper-card {
+    @apply bg-card border border-border rounded-xl shadow-md overflow-hidden;
+  }
+
+  .blueprint-surface {
+    @apply bg-background/50 border border-border rounded-lg relative overflow-hidden;
+    background-image: 
+      linear-gradient(to right, oklch(0.5 0.05 250 / 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.5 0.05 250 / 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .command-strip {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, oklch(0.64 0.18 296) 100%);
+    @apply text-white border-0;
+  }
+
+  .micro-label {
+    @apply font-code text-[0.65rem] uppercase tracking-wider text-muted-foreground font-semibold;
+  }
+
+  /* Custom animations since tailwindcss-animate fails on v4 for some environments */
+  .animate-fade-up {
+    animation: fadeUp 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* React Flow Controls Styling for Dark Theme */
+  .react-flow__controls {
+    @apply bg-card/90 backdrop-blur-md border border-border shadow-lg;
+  }
+
+  .react-flow__controls-button {
+    @apply bg-background/50 hover:bg-accent/80 text-foreground border-b border-border/30 transition-colors;
+  }
+
+  .react-flow__controls-button:hover {
+    @apply text-white;
+  }
+
+  .react-flow__minimap {
+    @apply bg-card/90 backdrop-blur-md border border-border;
+  }
 }
